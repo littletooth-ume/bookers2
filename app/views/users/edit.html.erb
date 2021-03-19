@@ -1,0 +1,21 @@
+<h1>User info</h1>
+
+<% if @user.errors.any? %>
+  <p><%= @user.errors.count %>error prohibited this obj from being saved:</p>
+  <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model:@user, local:true do |f| %>
+  <label for="inpuName">Name</label>
+  <%= f.text_field :name, autofucus: true, id:"inputName", placeholder:'名前' %>
+  <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
+  <label for="inputImage">ProfileImage</label>
+  <%= f.attachment_field :profile_image, placeholder: "プロフィール画像" %>
+  <label for="inputIntro">Introduction</label>
+  <%= f.text_area :introduction, id:"inputIntro" %>
+  <%= f.submit "Update User" %>
+<% end %>
